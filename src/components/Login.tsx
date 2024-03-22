@@ -2,33 +2,17 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const SignupForm = (props: any) => {
+const LoginForm = (props: any) => {
   const { control, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data: any) => {
     console.log(data); // Handle form submission here
+    // For login functionality, you can call your authentication API here
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Create  account</Text>
-      <Controller
-        control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Name"
-            placeholderTextColor="gray"
-          />
-        )}
-        name="name"
-        rules={{ required: true }}
-      />
-      {errors.name && <Text style={styles.error}>Name  is required.</Text>}
-
+      <Text style={styles.heading}>Login</Text>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -44,24 +28,8 @@ const SignupForm = (props: any) => {
         name="email"
         rules={{ required: true }}
       />
-      {errors.email && <Text style={styles.error}>Email  is required.</Text>}
-      <Controller
-        control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Phone Number"
-            keyboardType="phone-pad"
-            placeholderTextColor="gray"
-          />
-        )}
-        name="phone"
-        rules={{ required: true }}
-      />
-      {errors.phone && <Text style={styles.error}>Phone number is required.</Text>}
+      {errors.email && <Text style={styles.error}>Email is required.</Text>}
+      
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -80,17 +48,14 @@ const SignupForm = (props: any) => {
       />
       {errors.password && <Text style={styles.error}>Password is required.</Text>}
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonContainer} onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>      
-        </View>
+      <TouchableOpacity style={styles.buttonContainer} onPress={handleSubmit(onSubmit)}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
 
       <View style={styles.inlineContainer}>
-        <Text style={styles.loginText}>Already have an account?</Text>
-        <Button title='Login' onPress={() => props.navigation.navigate('Login')} />
+        <Text style={styles.signupText}>Don't have an account?</Text>
+        <Button title='Sign Up' onPress={() => props.navigation.navigate('Signup')} />
       </View>
-
     </View>
   );
 };
@@ -130,21 +95,21 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '80%',
-    padding: 5, // Adjust padding as needed
-    backgroundColor: '#0080FF', // Example background color
-    borderRadius: 5, // Example border radius
-    marginTop: 10, // Adjust margin as needed
+    padding: 10,
+    backgroundColor: '#0080FF',
+    borderRadius: 5,
+    marginTop: 10,
   },
   buttonText: {
-    color: 'white', // Example text color
-    textAlign: 'center', // Center text within the button
+    color: 'white',
+    textAlign: 'center',
     fontWeight:'bold'
   },
-  loginText: {
+  signupText: {
     color: 'black',
     marginRight:5,
     fontSize:18
   }
 });
 
-export default SignupForm;
+export default LoginForm;
